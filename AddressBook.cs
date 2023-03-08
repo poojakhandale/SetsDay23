@@ -4,69 +4,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SetsDay23
+
+namespace Day23Sets
 {
     public class AddressBook
     {
-
-        public Contacts[] ContactInfo { get; set; }
-        public int NumberOfContacts { get; set; }
+        public List<Contacts> ContactInfo { get; set; }
+        public Dictionary<string, List<Contacts>> ContactsByCountry { get; set; }
 
         public AddressBook()
         {
-            ContactInfo = new Contacts[100];
-            NumberOfContacts = 0;
+            ContactInfo = new List<Contacts>();
+            ContactsByCountry = new Dictionary<string, List<Contacts>>();
         }
-
-        //public void AddContact(Contacts contact)
-        //{
-        //  ContactInfo[NumberOfContacts] = contact;
-        //NumberOfContacts++;
-        //}
 
         public void AddContact(Contacts contact)
         {
-            bool isDuplicate = ContactInfo.Any(existingContact => existingContact != null && existingContact.firstName == contact.firstName && existingContact.lastName == contact.lastName);
+            if (!ContactInfo.Contains(contact))
+            {
+                ContactInfo.Add(contact);
 
-            if (!isDuplicate)
-            {
-                ContactInfo[NumberOfContacts] = contact;
-                NumberOfContacts++;
-                Console.WriteLine("Contact added successfully!");
-            }
-            else
-            {
-                Console.WriteLine("A contact with the same name already exists in the address book. Contact not added.");
+                if (!ContactsByCountry.ContainsKey(contact.country))
+                {
+                    ContactsByCountry[contact.country] = new List<Contacts>();
+                }
+                ContactsByCountry[contact.country].Add(contact);
             }
         }
-
 
         public void PrintContacts()
         {
-            for (int i = 0; i < NumberOfContacts; i++)
+            foreach (var contact in ContactInfo)
             {
                 Console.WriteLine("Name: {0} {1}\nCountry: {2}\nPhone: {3}\nEmail: {4}\n",
-                    ContactInfo[i].firstName, ContactInfo[i].lastName, ContactInfo[i].country, ContactInfo[i].phoneNumber, ContactInfo[i].email);
+                    contact.firstName, contact.lastName, contact.country, contact.phoneNumber, contact.email);
             }
         }
 
-        public void SearchByCountry(string country)
+        public List<Contacts> GetContactsByCountry(string country)
         {
-            var results = ContactInfo.Where(contact => contact != null && contact.country == country);
+            return ContactsByCountry.ContainsKey(country) ? ContactsByCountry[country] : new List<Contacts>();
+        }
 
-            if (results.Any())
+        public void PrintContactCountByCountry()
+        {
+            Console.WriteLine("Contact Count By Country:");
+
+            foreach (var kvp in ContactsByCountry)
             {
-                Console.WriteLine($"Contacts in {country}:");
-                foreach (var result in results)
-                {
-                    Console.WriteLine($"{result.firstName} {result.lastName}: {result.phoneNumber}, {result.email}");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"No contacts found in {country}.");
+                Console.WriteLine("{0}: {1}", kvp.Key, kvp.Value.Count);
             }
         }
     }
 }
+
 
