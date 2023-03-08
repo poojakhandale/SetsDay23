@@ -24,7 +24,6 @@ namespace Day23Sets
             this.phoneNumber = phoneNumber;
             this.email = email;
         }
-
     }
-}
 
+}
