@@ -3,9 +3,10 @@ class program
 {
 
 
-public static void Main(string[] args)
-{
-    Console.WriteLine("Welcome to the master branch for day 23 Assignments");
-}
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Welcome to the master branch for day 23 Assignments");
     }
+
+}
 
