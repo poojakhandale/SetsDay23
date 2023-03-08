@@ -17,13 +17,7 @@ namespace Day23Sets
             myAddressBook.AddContact(newContact3);
 
             //myAddressBook.PrintContacts();
-            string country = "USA";
-            List<Contacts> contactsInCountry = myAddressBook.GetContactsByCountry(country);
-            Console.WriteLine("\nContacts in {0}:", country);
-            foreach (var contact in contactsInCountry)
-            {
-                Console.WriteLine("{0} {1}", contact.firstName, contact.lastName);
-            }
+            myAddressBook.PrintContactCountByCountry();
         }
     }
 }
