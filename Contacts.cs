@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SetsDay23
+
+namespace Day23Sets
 {
     public class Contacts
     {
@@ -23,6 +24,7 @@ namespace SetsDay23
             this.phoneNumber = phoneNumber;
             this.email = email;
         }
+
     }
 }
 
